@@ -12,10 +12,10 @@ const AuthPage = () => {
             <div className="auth__inner">
                 <p className="auth__title">Вход</p>
                 <Form layout={'vertical'}>
-                    <Form.Item label={'fewf'} className={'auth__item'}>
+                    <Form.Item label={'Пользователь'} className={'auth__item'}>
                         <Input />
                     </Form.Item>
-                    <Form.Item label={'fewf'} className={'auth__item'}>
+                    <Form.Item label={'Пароль'} className={'auth__item'}>
                         <InputAnt.Password className={'input'} />
                     </Form.Item>
                     <div className={'auth__btn-wrapper'}>
