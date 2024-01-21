@@ -1,6 +1,11 @@
 .button{
+  border-radius: 12px;
   &.ant-btn-primary{
     background: rgba(82, 110, 211, 1);
-
+  }
+  &.ant-btn-default{
+    background: #EBEFFF;
+    color: #526ED3;
+    border: none;
   }
 }
