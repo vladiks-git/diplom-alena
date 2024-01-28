@@ -5,6 +5,7 @@ import { StudentPage } from './pages/StudentPage/StudentPage';
 import { StudentEvents } from './components/student/StudentEvents/StudentEvents';
 import { StudentRequests } from './components/student/StudentRequests/StudentRequests';
 import { AdminPage } from './pages/AdminPage/AdminPage';
+import ResponsiblePage from './pages/ResponsiblePage/ResponsiblePage';
 
 const AppRouter = () => {
     const routes = createBrowserRouter([
@@ -29,6 +30,10 @@ const AppRouter = () => {
         {
             path: '/admin',
             element: <AdminPage />,
+        },
+        {
+            path: '/responsible',
+            element: <ResponsiblePage />,
         },
     ]);
 
