@@ -1,0 +1,14 @@
+.student-requests{
+  &__new{
+    margin-bottom: 16px;
+  }
+  &__reject{
+    margin-top: 40px;
+    margin-bottom: 12px;
+  }
+  tbody{
+    td:last-child {
+    background: #DDFFD8;
+  }
+  }
+}

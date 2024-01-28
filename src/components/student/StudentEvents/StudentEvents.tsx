@@ -70,7 +70,7 @@ export const StudentEvents = () => {
                     Добавить мероприятие
                 </Button>
             </div>
-            <p className="events__title">Участие в мероприятиях</p>
+            <p className="events__title title">Участие в мероприятиях</p>
             <Table
                 columns={columns}
                 dataSource={testData}

@@ -13,3 +13,9 @@ body{
   max-width: 1300px;
   margin: 0 auto;
 }
+
+.title{
+  color: #1B1F3BCC;
+  font-size: 28px;
+  font-weight: 800;
+}

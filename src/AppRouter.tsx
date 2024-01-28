@@ -3,6 +3,7 @@ import AuthPage from './pages/AuthPage/AuthPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { StudentPage } from './pages/StudentPage/StudentPage';
 import { StudentEvents } from './components/student/StudentEvents/StudentEvents';
+import { StudentRequests } from './components/student/StudentRequests/StudentRequests';
 
 const AppRouter = () => {
     const routes = createBrowserRouter([
@@ -16,7 +17,7 @@ const AppRouter = () => {
             children: [
                 {
                     path: 'requests',
-                    element: <div>requests</div>,
+                    element: <StudentRequests />,
                 },
                 {
                     path: 'events',
