@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import { Radio, RadioProps } from 'antd';
 import './style.scss';
+import { log } from 'util';
 
 type RadioGroupProps = RadioProps & {
     options: Array<{ value: string; title: string }>;

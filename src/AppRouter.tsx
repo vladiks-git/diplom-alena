@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { StudentPage } from './pages/StudentPage/StudentPage';
 import { StudentEvents } from './components/student/StudentEvents/StudentEvents';
 import { StudentRequests } from './components/student/StudentRequests/StudentRequests';
+import { AdminPage } from './pages/AdminPage/AdminPage';
 
 const AppRouter = () => {
     const routes = createBrowserRouter([
@@ -24,6 +25,10 @@ const AppRouter = () => {
                     element: <StudentEvents />,
                 },
             ],
+        },
+        {
+            path: '/admin',
+            element: <AdminPage />,
         },
     ]);
 
