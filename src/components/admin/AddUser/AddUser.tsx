@@ -10,6 +10,9 @@ import './style.scss';
 import Button from '../../../ui-kit/Button/Button';
 import { useForm, useWatch } from 'antd/es/form/Form';
 import { Roles } from '../../../consts/common';
+import { IResponsible, IStudent } from '../../../types/user';
+import { getFormattedDate } from '../../../utils/common';
+import { Dayjs } from 'dayjs';
 
 interface IAddUserProps {
     isOpen: boolean;
@@ -31,10 +34,21 @@ const initialFormData = {
     role: Roles.responsible,
 };
 
+type StudentFormData = Omit<IStudent, 'birthday'> & { birthday: Dayjs };
+type ResponsibleFormData = Omit<IResponsible, 'birthday'> & { birthday: Dayjs };
 const AddUser: FC<IAddUserProps> = ({ isOpen, onClose }) => {
     const [form] = useForm();
 
-    const type = useWatch('type', form);
+    const role = useWatch('role', form);
+
+    const handleFinish = (values: ResponsibleFormData | StudentFormData) => {
+        const date = getFormattedDate(values.birthday);
+    };
+
+    const handleClose = () => {
+        onClose();
+        form.resetFields();
+    };
 
     const renderStudentControls = () => (
         <>
@@ -69,14 +83,15 @@ const AddUser: FC<IAddUserProps> = ({ isOpen, onClose }) => {
         </>
     );
 
-    const isStudent = type === Roles.student;
+    const isStudent = role === Roles.student;
 
     return (
-        <Modal onCancel={onClose} open={isOpen}>
+        <Modal destroyOnClose={true} onCancel={handleClose} open={isOpen}>
             <p className="add-user__title title">Добавление пользователя</p>
             <Form
                 layout={'vertical'}
                 form={form}
+                onFinish={handleFinish}
                 initialValues={initialFormData}
             >
                 <Form.Item
@@ -143,8 +158,10 @@ const AddUser: FC<IAddUserProps> = ({ isOpen, onClose }) => {
                     <Input placeholder={'Впишите пароль'} />
                 </Form.Item>
                 <div className="add-user__btns">
-                    <Button type={'default'}>Отменить</Button>
-                    <Button>Добавить пользователя</Button>
+                    <Button onClick={handleClose} type={'default'}>
+                        Отменить
+                    </Button>
+                    <Button htmlType={'submit'}>Добавить пользователя</Button>
                 </div>
             </Form>
         </Modal>
