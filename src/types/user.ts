@@ -1,3 +1,5 @@
+import { Roles } from '../consts/common';
+
 export interface IUser {
     id?: number;
     role: string;

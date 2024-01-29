@@ -12,7 +12,7 @@ const Header: FC<IHeaderProps> = ({ links }) => {
         <header className={'container header'}>
             <div className="header__inner">
                 {links.map((link) => (
-                    <NavLink key={link.path} to={link.path}>
+                    <NavLink key={link.path + Math.random()} to={link.path}>
                         {link.title}
                     </NavLink>
                 ))}
