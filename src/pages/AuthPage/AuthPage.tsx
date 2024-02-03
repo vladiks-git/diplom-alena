@@ -35,7 +35,7 @@ const AuthPage = () => {
             }
 
             if (role === Roles.student) {
-                navigate('/student');
+                navigate('/student/requests');
             }
 
             if (role === Roles.responsible) {
@@ -46,6 +46,7 @@ const AuthPage = () => {
                     login: data?.login,
                     password: data?.password,
                     role: data?.role,
+                    id: data?.id,
                 })
             );
         }

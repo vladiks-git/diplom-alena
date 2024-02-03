@@ -1,10 +1,11 @@
 export interface IEvent {
     id?: number;
-    type: any;
+    type: string;
     name: string;
-    status: any;
-    result: any;
-    points: number;
+    status: string;
+    date: string;
+    result: string;
+    award: string;
 }
 
 export interface IRequest {

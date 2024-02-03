@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../../../ui-kit/Button/Button';
 import { PlusCircleOutlined } from '@ant-design/icons';
 
@@ -12,6 +12,16 @@ import { Select } from '../../../ui-kit/Select/Select';
 import { Input } from '../../../ui-kit/Input/Input';
 import { DatePicker } from '../../../ui-kit/DatePicker/DatePicker';
 import { RadioGroup } from '../../../ui-kit/RadioGroup/RadioGroup';
+import { useForm } from 'antd/es/form/Form';
+import { EventStatuses, EventTypeOptions } from '../../../consts/common';
+import { Dayjs } from 'dayjs';
+import { getFormattedDate } from '../../../utils/common';
+import {
+    useCreateEventMutation,
+    useGetApprovedEventsQuery,
+} from '../../../api/studentApi';
+import { useAppSelector } from '../../../store';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 const columns: ColumnsType<IEvent> = [
     {
@@ -23,6 +33,10 @@ const columns: ColumnsType<IEvent> = [
         dataIndex: 'type',
     },
     {
+        title: 'Название мероприятия',
+        dataIndex: 'name',
+    },
+    {
         title: 'Статус мероприятия',
         dataIndex: 'status',
     },
@@ -32,19 +46,19 @@ const columns: ColumnsType<IEvent> = [
     },
     {
         title: 'Баллы',
-        dataIndex: 'points',
+        dataIndex: 'result',
     },
 ];
-
-const testData: IEvent[] = [
-    {
-        points: 10,
-        name: 'name',
-        result: 'resukt',
-        type: 'type',
-        status: 'status',
-    },
-];
+//
+// const testData: IEvent[] = [
+//     {
+//         points: 10,
+//         name: 'name',
+//         result: 'resukt',
+//         type: 'type',
+//         status: 'status',
+//     },
+// ];
 
 const radioOptions = [
     {
@@ -57,11 +71,52 @@ const radioOptions = [
     },
 ];
 
+type FromDataType = Partial<Omit<IEvent, 'date'>> & { date: Dayjs | null };
+
+const initialFormData: FromDataType = {
+    date: null,
+    type: undefined,
+    name: '',
+    result: 'Награда',
+    award: '',
+    status: undefined,
+};
+
 export const StudentEvents = () => {
     const [isOpenAdd, setIsOpenAdd] = useState(false);
 
+    const [form] = useForm();
+
+    const [createEvent, { isSuccess }] = useCreateEventMutation();
+
+    const { id: userId } = useAppSelector((state) => state.authSlice);
+
+    const { data: events = [] } = useGetApprovedEventsQuery(
+        userId ? userId : skipToken
+    );
+
+    useEffect(() => {
+        if (isSuccess) {
+            handleCloseAdd();
+            form.resetFields();
+        }
+    }, [isSuccess]);
+
     const handleOpenAdd = () => setIsOpenAdd(true);
-    const handleCloseAdd = () => setIsOpenAdd(false);
+    const handleCloseAdd = () => {
+        setIsOpenAdd(false);
+        form.resetFields();
+    };
+
+    const handleFinish = (values: FromDataType) => {
+        const newEvent = {
+            ...values,
+            date: getFormattedDate(values.date),
+            userId: userId,
+        };
+        console.log(newEvent);
+        createEvent(newEvent);
+    };
 
     return (
         <div className={'events'}>
@@ -72,8 +127,8 @@ export const StudentEvents = () => {
             </div>
             <p className="events__title title">Участие в мероприятиях</p>
             <Table
+                dataSource={events}
                 columns={columns}
-                dataSource={testData}
                 pagination={false}
                 footer={() => <div>total points 88</div>}
             />
@@ -83,52 +138,65 @@ export const StudentEvents = () => {
                 open={isOpenAdd}
                 onCancel={handleCloseAdd}
             >
-                <Form layout={'vertical'}>
+                <Form
+                    layout={'vertical'}
+                    form={form}
+                    onFinish={handleFinish}
+                    initialValues={initialFormData}
+                >
                     <Form.Item
                         label={'Тип мероприятия'}
                         className={'events__form-item'}
+                        name={'type'}
                     >
                         <Select
-                            options={[]}
+                            options={EventTypeOptions}
                             placeholder={'Выбрать тип мероприятия'}
                         />
                     </Form.Item>
                     <Form.Item
-                        label={'Тип мероприятия'}
+                        label={'Название мероприятия'}
                         className={'events__form-item'}
+                        name={'name'}
                     >
                         <Input placeholder={'Впишите название мероприятия'} />
                     </Form.Item>
                     <Form.Item
                         label={'Статус мероприятия'}
                         className={'events__form-item'}
+                        name={'status'}
                     >
                         <Select
-                            options={[]}
+                            options={EventStatuses}
                             placeholder={'Выбрать статус мероприятия'}
                         />
                     </Form.Item>
                     <Form.Item
-                        label={'Статус мероприятия'}
+                        label={'Дата мероприятия'}
                         className={'events__form-item'}
+                        name={'date'}
                     >
                         <DatePicker />
                     </Form.Item>
                     <Form.Item
                         label={'Результат мероприятия'}
                         className={'events__form-item'}
+                        name={'result'}
                     >
                         <RadioGroup options={radioOptions} />
                     </Form.Item>
                     <Form.Item
                         label={'Вид награды'}
                         className={'events__form-item'}
+                        name={'award'}
                     >
                         <Input placeholder={'Впишите вид награды'} />
                     </Form.Item>
                     <div className="events__btns">
                         <Button type={'default'}>Отменить</Button>
-                        <Button>Добавить мероприятие</Button>
+                        <Button htmlType={'submit'}>
+                            Добавить мероприятие
+                        </Button>
                     </div>
                 </Form>
             </Modal>

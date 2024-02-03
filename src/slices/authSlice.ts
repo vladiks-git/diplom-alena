@@ -6,6 +6,7 @@ const initialState: Partial<IUser> | Partial<IResponsible> | Partial<IStudent> =
         login: '',
         password: '',
         role: '',
+        id: undefined,
     };
 
 export const authSlice = createSlice({
@@ -17,6 +18,7 @@ export const authSlice = createSlice({
                 login: action.payload.login,
                 password: action.payload.password,
                 role: action.payload.role,
+                id: action.payload.id,
             };
         },
         logOut: (state) => initialState,
