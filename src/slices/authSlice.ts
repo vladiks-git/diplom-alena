@@ -19,7 +19,8 @@ export const authSlice = createSlice({
                 role: action.payload.role,
             };
         },
+        logOut: (state) => initialState,
     },
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, logOut } = authSlice.actions;

@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../slices/authSlice';
 import { Roles } from '../../consts/common';
 import { useNavigate } from 'react-router';
+import { IUser } from '../../types/user';
 
 const AuthPage = () => {
     const [auth, { data, isSuccess, error }] = useAuthMutation();
@@ -21,13 +22,13 @@ const AuthPage = () => {
 
     const dispatch = useDispatch();
 
-    const handleLogin = () => {
-        auth(form.getFieldsValue());
+    const handleLogin = (values: IUser) => {
+        auth(values);
     };
 
     useEffect(() => {
         if (isSuccess) {
-            const role = data.role;
+            const role = data?.role;
 
             if (role === Roles.admin) {
                 navigate('/admin');

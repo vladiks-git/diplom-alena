@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IResponsible, IStudent } from '../types/user';
+import { IResponsible, IStudent, IUser } from '../types/user';
 
 const userTag = 'userTag';
-export const userApi = createApi({
-    reducerPath: 'userApi',
+export const adminApi = createApi({
+    reducerPath: 'adminApi',
     baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
     tagTypes: [userTag],
     endpoints: (builder) => ({
@@ -15,7 +15,7 @@ export const userApi = createApi({
             }),
             invalidatesTags: [userTag],
         }),
-        getAllUsers: builder.query({
+        getAllUsers: builder.query<IUser[], void>({
             query: () => ({
                 url: '/',
             }),
@@ -24,4 +24,4 @@ export const userApi = createApi({
     }),
 });
 
-export const { useCreateUserMutation, useGetAllUsersQuery } = userApi;
+export const { useCreateUserMutation, useGetAllUsersQuery } = adminApi;

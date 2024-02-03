@@ -1,9 +1,8 @@
 import { Roles } from '../consts/common';
-import { Dayjs } from 'dayjs';
 
 export interface IUser {
     id?: number;
-    role: string;
+    role: Roles | string;
     fio: string;
     birthday: string;
     phone: string;
@@ -13,12 +12,12 @@ export interface IUser {
 }
 
 export interface IResponsible extends IUser {
-    eventType: string;
+    eventType?: string;
 }
 
 export interface IStudent extends IUser {
-    group: string;
-    faculty: string;
-    direction: string;
-    department: string;
+    group?: string;
+    faculty?: string;
+    direction?: string;
+    department?: string;
 }

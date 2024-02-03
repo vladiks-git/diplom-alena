@@ -6,6 +6,7 @@ import { StudentEvents } from './components/student/StudentEvents/StudentEvents'
 import { StudentRequests } from './components/student/StudentRequests/StudentRequests';
 import { AdminPage } from './pages/AdminPage/AdminPage';
 import ResponsiblePage from './pages/ResponsiblePage/ResponsiblePage';
+import ProtectedPage from './components/ProtectedPage/ProtectedPage';
 
 const AppRouter = () => {
     const routes = createBrowserRouter([
@@ -15,9 +16,14 @@ const AppRouter = () => {
         },
         {
             path: '/student',
-            element: <StudentPage />,
+            element: (
+                <ProtectedPage>
+                    <StudentPage />
+                </ProtectedPage>
+            ),
             children: [
                 {
+                    index: true,
                     path: 'requests',
                     element: <StudentRequests />,
                 },
@@ -29,11 +35,29 @@ const AppRouter = () => {
         },
         {
             path: '/admin',
-            element: <AdminPage />,
+            element: (
+                <ProtectedPage>
+                    <AdminPage />
+                </ProtectedPage>
+            ),
         },
         {
             path: '/responsible',
-            element: <ResponsiblePage />,
+            element: (
+                <ProtectedPage>
+                    <ResponsiblePage />
+                </ProtectedPage>
+            ),
+        },
+        {
+            path: '*',
+            element: (
+                <ProtectedPage>
+                    <div style={{ textAlign: 'center', marginTop: '100px' }}>
+                        404 Страница не найдена
+                    </div>
+                </ProtectedPage>
+            ),
         },
     ]);
 

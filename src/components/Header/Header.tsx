@@ -2,12 +2,24 @@ import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from '../../ui-kit/Button/Button';
 import './style.scss';
+import { useNavigate } from 'react-router';
+import { useAppDispatch } from '../../store';
+import { logOut } from '../../slices/authSlice';
 
 interface IHeaderProps {
     links: { path: string; title: string }[];
 }
 
 const Header: FC<IHeaderProps> = ({ links }) => {
+    const navigate = useNavigate();
+
+    const dispatch = useAppDispatch();
+
+    const handleLogout = () => {
+        navigate('/auth');
+        dispatch(logOut());
+    };
+
     return (
         <header className={'container header'}>
             <div className="header__inner">
@@ -17,7 +29,9 @@ const Header: FC<IHeaderProps> = ({ links }) => {
                     </NavLink>
                 ))}
             </div>
-            <Button type={'text'}>Выйти</Button>
+            <Button onClick={handleLogout} type={'text'}>
+                Выйти
+            </Button>
         </header>
     );
 };

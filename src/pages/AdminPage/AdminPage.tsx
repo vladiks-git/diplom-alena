@@ -6,10 +6,12 @@ import { ColumnsType } from 'antd/es/table';
 import { IUser } from '../../types/user';
 import './style.scss';
 import AddUser from '../../components/admin/AddUser/AddUser';
+import { useGetAllUsersQuery } from '../../api/adminApi';
+import { Roles, RussianRoles } from '../../consts/common';
 
 const navLinks = [
     {
-        path: 'students',
+        path: '/admin',
         title: 'Список студентов',
     },
 ];
@@ -25,18 +27,19 @@ const columns: ColumnsType<IUser> = [
     },
 ];
 
-const testData: Partial<IUser>[] = [
-    {
-        fio: 'test fio',
-        role: 'role',
-    },
-];
-
 export const AdminPage = () => {
     const [isOpenAdd, setIsOpenAdd] = useState(false);
 
+    const { data: users = [] } = useGetAllUsersQuery();
+
     const handleOpenAdd = () => setIsOpenAdd(true);
     const handleCloseAdd = () => setIsOpenAdd(false);
+
+    const filteredUsers = users
+        .filter((user) => user.role !== Roles.admin)
+        .map((user) => {
+            return { ...user, role: RussianRoles[user.role as Roles] };
+        });
 
     return (
         <div className={'admin-page'}>
@@ -51,7 +54,7 @@ export const AdminPage = () => {
                 <p className="admin-page__title title">Пользователи</p>
                 <Table
                     columns={columns}
-                    dataSource={testData}
+                    dataSource={filteredUsers}
                     pagination={false}
                 />
             </div>
