@@ -4,6 +4,9 @@ import { ColumnsType } from 'antd/es/table';
 import { IRequest } from '../../../types/student';
 
 import './style.scss';
+import { useGetApprovedEventsQuery } from '../../../api/studentApi';
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useAppSelector } from '../../../store';
 const columns: ColumnsType<IRequest> = [
     {
         title: 'Дата мероприятия',
@@ -27,26 +30,23 @@ const columns: ColumnsType<IRequest> = [
     },
     {
         title: 'Статус экспертизы',
-        dataIndex: 'status_expertise',
-    },
-];
-
-const testData: IRequest[] = [
-    {
-        date: 'test date',
-        status_expertise: 'status expertice',
-        name: 'name',
-        result: 'resukt',
-        type: 'type',
-        status: 'status',
+        render: () => <div>Новая</div>,
     },
 ];
 
 export const StudentRequests = () => {
+    const { id: userId } = useAppSelector((state) => state.authSlice);
+
+    const { events } = useGetApprovedEventsQuery(userId ? userId : skipToken, {
+        selectFromResult: ({ data }) => ({
+            events: data?.filter((event) => !event.isApprove) || [],
+        }),
+    });
+
     return (
         <div className={'student-requests'}>
             <p className="student-requests__new title">Новые заявки</p>
-            <Table columns={columns} dataSource={testData} pagination={false} />
+            <Table columns={columns} dataSource={events} pagination={false} />
             <p className="student-requests__reject title">Отклоненные заявки</p>
             <p>Отклоненных заявок нет</p>
         </div>

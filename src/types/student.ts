@@ -6,6 +6,7 @@ export interface IEvent {
     date: string;
     result: string;
     award: string;
+    isApprove?: boolean;
     points?: number;
 }
 

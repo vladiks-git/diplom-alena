@@ -91,9 +91,11 @@ export const StudentEvents = () => {
 
     const { id: userId } = useAppSelector((state) => state.authSlice);
 
-    const { data: events = [] } = useGetApprovedEventsQuery(
-        userId ? userId : skipToken
-    );
+    const { events } = useGetApprovedEventsQuery(userId ? userId : skipToken, {
+        selectFromResult: ({ data }) => ({
+            events: data?.filter((event) => event.isApprove) || [],
+        }),
+    });
 
     useEffect(() => {
         if (isSuccess) {
