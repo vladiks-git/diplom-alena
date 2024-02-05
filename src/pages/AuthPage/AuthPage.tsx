@@ -47,6 +47,7 @@ const AuthPage = () => {
                     password: data?.password,
                     role: data?.role,
                     id: data?.id,
+                    eventType: data?.eventType,
                 })
             );
         }

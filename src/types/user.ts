@@ -9,11 +9,10 @@ export interface IUser {
     email: string;
     login: string;
     password: string;
+    eventType?: string | null;
 }
 
-export interface IResponsible extends IUser {
-    eventType?: string;
-}
+export type IResponsible = IUser;
 
 export interface IStudent extends IUser {
     group?: string;

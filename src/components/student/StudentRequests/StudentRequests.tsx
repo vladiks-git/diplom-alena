@@ -42,6 +42,7 @@ export const StudentRequests = () => {
         selectFromResult: ({ data }) => ({
             events: data?.filter((event) => !event.isApprove) || [],
         }),
+        refetchOnMountOrArgChange: true,
     });
 
     return (

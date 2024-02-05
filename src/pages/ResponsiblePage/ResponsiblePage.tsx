@@ -1,7 +1,6 @@
 import React from 'react';
 import Table from '../../ui-kit/Table/Table';
 import { ColumnsType } from 'antd/es/table';
-import { IRequest } from '../../types/student';
 import Header from '../../components/Header/Header';
 import {
     useApproveEventMutation,
@@ -10,6 +9,7 @@ import {
 import { CheckOutlined } from '@ant-design/icons';
 
 import './style.scss';
+import { useAppSelector } from '../../store';
 
 const navLinks = [
     {
@@ -19,8 +19,13 @@ const navLinks = [
 ];
 
 const ResponsiblePage = () => {
-    const { data: event = [] } = useGetNotApprovedEventsQuery(undefined, {
+    const { eventType } = useAppSelector((state) => state.authSlice);
+
+    const { events } = useGetNotApprovedEventsQuery(undefined, {
         refetchOnMountOrArgChange: true,
+        selectFromResult: ({ data }) => ({
+            events: data?.filter((event) => event.type === eventType) || [],
+        }),
     });
 
     const [approveEvent] = useApproveEventMutation();
@@ -77,7 +82,7 @@ const ResponsiblePage = () => {
                 </p>
                 <Table
                     columns={columns}
-                    dataSource={event}
+                    dataSource={events}
                     pagination={false}
                 />
             </div>

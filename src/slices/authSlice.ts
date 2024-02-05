@@ -19,6 +19,7 @@ export const authSlice = createSlice({
                 password: action.payload.password,
                 role: action.payload.role,
                 id: action.payload.id,
+                eventType: action.payload.eventType,
             };
         },
         logOut: (state) => initialState,

@@ -22,6 +22,7 @@ import {
 } from '../../../api/studentApi';
 import { useAppSelector } from '../../../store';
 import { skipToken } from '@reduxjs/toolkit/query';
+import { toast } from 'react-toastify';
 
 const columns: ColumnsType<IEvent> = [
     {
@@ -95,12 +96,14 @@ export const StudentEvents = () => {
         selectFromResult: ({ data }) => ({
             events: data?.filter((event) => event.isApprove) || [],
         }),
+        refetchOnMountOrArgChange: true,
     });
 
     useEffect(() => {
         if (isSuccess) {
             handleCloseAdd();
             form.resetFields();
+            toast.success('Успешно!');
         }
     }, [isSuccess]);
 
