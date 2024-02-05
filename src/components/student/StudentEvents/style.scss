@@ -23,4 +23,17 @@
 
     margin-bottom: 16px;
   }
+
+  .ant-table-footer{
+    background: #E2E6F2;
+
+  }
+
+  &__table-footer{
+    display: flex;
+    justify-content: space-between;
+    & > *{
+      font-weight: 700;
+    }
+  }
 }

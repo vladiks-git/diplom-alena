@@ -46,7 +46,7 @@ const columns: ColumnsType<IEvent> = [
     },
     {
         title: 'Баллы',
-        dataIndex: 'result',
+        dataIndex: 'points',
     },
 ];
 //
@@ -114,8 +114,14 @@ export const StudentEvents = () => {
             date: getFormattedDate(values.date),
             userId: userId,
         };
-        console.log(newEvent);
         createEvent(newEvent);
+    };
+
+    const getTotalPoints = () => {
+        return events.reduce((total, cur) => {
+            if (!cur.points) return total;
+            return total + cur.points;
+        }, 0);
     };
 
     return (
@@ -130,7 +136,12 @@ export const StudentEvents = () => {
                 dataSource={events}
                 columns={columns}
                 pagination={false}
-                footer={() => <div>total points 88</div>}
+                footer={() => (
+                    <div className={'events__table-footer'}>
+                        <p>Итого</p>
+                        <div>{getTotalPoints()}</div>
+                    </div>
+                )}
             />
             <Modal
                 width={441}
