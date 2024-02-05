@@ -18,7 +18,7 @@ const navLinks = [
 
 const columns: ColumnsType<IUser> = [
     {
-        title: 'ФИЩ',
+        title: 'ФИО',
         dataIndex: 'fio',
     },
     {

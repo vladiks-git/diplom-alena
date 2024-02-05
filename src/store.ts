@@ -11,6 +11,7 @@ import type { TypedUseSelectorHook } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { studentApi } from './api/studentApi';
+import { responsibleApi } from './api/responsibleApi';
 
 const rtkQueryErrorMiddleware: Middleware =
     (api: MiddlewareAPI) => (next) => (action: any) => {
@@ -29,12 +30,14 @@ export const store = configureStore({
         [authApi.reducerPath]: authApi.reducer,
         [adminApi.reducerPath]: adminApi.reducer,
         [studentApi.reducerPath]: studentApi.reducer,
+        [responsibleApi.reducerPath]: responsibleApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
             .concat(authApi.middleware)
             .concat(adminApi.middleware)
             .concat(studentApi.middleware)
+            .concat(responsibleApi.middleware)
             .concat(rtkQueryErrorMiddleware),
 });
 

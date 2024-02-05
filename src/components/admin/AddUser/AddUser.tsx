@@ -10,6 +10,7 @@ import './style.scss';
 import Button from '../../../ui-kit/Button/Button';
 import { useForm, useWatch } from 'antd/es/form/Form';
 import {
+    CourseOptions,
     DepartamentOptions,
     DirectionOptions,
     EventTypeOptions,
@@ -130,6 +131,14 @@ const AddUser: FC<IAddUserProps> = ({ isOpen, onClose }) => {
                     placeholder={'Выберите кафедру'}
                     options={DepartamentOptions}
                 />
+            </Form.Item>
+            <Form.Item
+                name={'course'}
+                label={'Курс'}
+                className={'add-user__form-item'}
+                required
+            >
+                <Select placeholder={'Выберите курс'} options={CourseOptions} />
             </Form.Item>
         </>
     );

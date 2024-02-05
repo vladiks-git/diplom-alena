@@ -1,0 +1,20 @@
+.action{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #EBEFFF;
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+tbody{
+  tr{
+    td:nth-child(7){
+      background: #DDFFD8;
+    }
+  }
+}

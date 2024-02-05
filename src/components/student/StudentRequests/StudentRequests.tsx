@@ -7,6 +7,7 @@ import './style.scss';
 import { useGetApprovedEventsQuery } from '../../../api/studentApi';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useAppSelector } from '../../../store';
+import { CheckOutlined } from '@ant-design/icons';
 const columns: ColumnsType<IRequest> = [
     {
         title: 'Дата мероприятия',
@@ -44,7 +45,7 @@ export const StudentRequests = () => {
     });
 
     return (
-        <div className={'student-requests'}>
+        <div className={`student-requests ${events.length ? 'fill' : ''}`}>
             <p className="student-requests__new title">Новые заявки</p>
             <Table columns={columns} dataSource={events} pagination={false} />
             <p className="student-requests__reject title">Отклоненные заявки</p>
