@@ -9,6 +9,7 @@ const initialState: Partial<IUser> | Partial<IResponsible> | Partial<IStudent> =
         id: undefined,
     };
 
+// Глобальное хранилище для авторизации
 export const authSlice = createSlice({
     name: 'authSlice',
     initialState,

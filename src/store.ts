@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { studentApi } from './api/studentApi';
 import { responsibleApi } from './api/responsibleApi';
 
+// Промежуточный обработчик ошибок
 const rtkQueryErrorMiddleware: Middleware =
     (api: MiddlewareAPI) => (next) => (action: any) => {
         // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
@@ -24,6 +25,7 @@ const rtkQueryErrorMiddleware: Middleware =
         return next(action);
     };
 
+// Глобальное хранилище
 export const store = configureStore({
     reducer: {
         authSlice: authSlice.reducer,

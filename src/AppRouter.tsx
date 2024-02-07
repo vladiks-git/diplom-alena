@@ -8,6 +8,7 @@ import { AdminPage } from './pages/AdminPage/AdminPage';
 import ResponsiblePage from './pages/ResponsiblePage/ResponsiblePage';
 import ProtectedPage from './components/ProtectedPage/ProtectedPage';
 
+// Роуты
 const AppRouter = () => {
     const routes = createBrowserRouter([
         {

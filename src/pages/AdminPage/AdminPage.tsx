@@ -27,6 +27,7 @@ const columns: ColumnsType<IUser> = [
     },
 ];
 
+// Компонент страницы админа
 export const AdminPage = () => {
     const [isOpenAdd, setIsOpenAdd] = useState(false);
 

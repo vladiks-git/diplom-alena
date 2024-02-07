@@ -3,6 +3,7 @@ import { useAppSelector } from '../../store';
 import { Roles } from '../../consts/common';
 import { Navigate } from 'react-router';
 
+// Компонент защищенных роутов
 const ProtectedPage: FC<PropsWithChildren> = ({ children }) => {
     const { role } = useAppSelector((state) => state.authSlice);
 

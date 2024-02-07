@@ -59,6 +59,8 @@ type StudentFormData = Omit<IStudent, 'birthday'> & { birthday: Dayjs | null };
 type ResponsibleFormData = Omit<IResponsible, 'birthday'> & {
     birthday: Dayjs | null;
 };
+
+// Компонент добавления пользователей
 const AddUser: FC<IAddUserProps> = ({ isOpen, onClose }) => {
     const [form] = useForm();
 

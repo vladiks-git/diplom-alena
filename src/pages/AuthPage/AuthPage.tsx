@@ -13,6 +13,7 @@ import { Roles } from '../../consts/common';
 import { useNavigate } from 'react-router';
 import { IUser } from '../../types/user';
 
+// Компонент страницы авторизации
 const AuthPage = () => {
     const [auth, { data, isSuccess, error }] = useAuthMutation();
 

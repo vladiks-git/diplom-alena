@@ -35,6 +35,7 @@ const columns: ColumnsType<IRequest> = [
     },
 ];
 
+// Компонент заявок студента
 export const StudentRequests = () => {
     const { id: userId } = useAppSelector((state) => state.authSlice);
 

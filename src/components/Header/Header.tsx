@@ -10,6 +10,7 @@ interface IHeaderProps {
     links: { path: string; title: string }[];
 }
 
+// Компонент хедера
 const Header: FC<IHeaderProps> = ({ links }) => {
     const navigate = useNavigate();
 

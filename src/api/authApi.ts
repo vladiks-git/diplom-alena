@@ -6,6 +6,7 @@ interface AuthRequest {
     password: string;
 }
 
+// АПИ авторизации
 export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/auth' }),

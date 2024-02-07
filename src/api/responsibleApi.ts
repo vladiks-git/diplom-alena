@@ -3,6 +3,7 @@ import { IEvent } from '../types/student';
 
 const eventTag = 'eventTag';
 
+// АПИ ответственного
 export const responsibleApi = createApi({
     reducerPath: 'responsibleApi',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/responsible' }),

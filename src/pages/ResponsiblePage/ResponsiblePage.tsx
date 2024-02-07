@@ -18,6 +18,7 @@ const navLinks = [
     },
 ];
 
+// Компонент страницы ответственного
 const ResponsiblePage = () => {
     const { eventType } = useAppSelector((state) => state.authSlice);
 

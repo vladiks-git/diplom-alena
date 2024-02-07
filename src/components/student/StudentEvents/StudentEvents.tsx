@@ -83,6 +83,7 @@ const initialFormData: FromDataType = {
     status: undefined,
 };
 
+// Компонент мероприятий студента
 export const StudentEvents = () => {
     const [isOpenAdd, setIsOpenAdd] = useState(false);
 
